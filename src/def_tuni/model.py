@@ -442,6 +442,34 @@ class TUNIModel(nn.Module):
         if pretrained:
             self.encoder.load_pretrained(pretrained)
 
+    def load_checkpoint(self, path: str):
+        """Load full model checkpoint (encoder + decoder) from reference format.
+
+        Reference weights use: encoder.enc.* → our encoder.*
+                               decoder.* → decoder.* (compatible via .proj rename)
+        """
+        sd = torch.load(path, map_location="cpu", weights_only=False)
+        if isinstance(sd, dict) and "model" in sd:
+            sd = sd["model"]
+
+        remapped = OrderedDict()
+        for k, v in sd.items():
+            # Reference: encoder.enc.X → our: encoder.X
+            if k.startswith("encoder.enc."):
+                remapped["encoder." + k[12:]] = v
+            # Reference decoder.linear_cN.proj.* → our decoder.linear_cN.*
+            elif k.startswith("decoder.") and ".proj." in k:
+                new_k = k.replace(".proj.", ".")
+                remapped[new_k] = v
+            else:
+                remapped[k] = v
+
+        missing, unexpected = self.load_state_dict(remapped, strict=False)
+        loaded = len(sd) - len(unexpected)
+        print(f"[TUNI] Loaded {loaded}/{len(sd)} keys (missing={len(missing)}, unexpected={len(unexpected)})")
+        if missing:
+            print(f"  Missing sample: {missing[:3]}")
+
     def forward(self, rgb: torch.Tensor, thermal: torch.Tensor | None = None):
         if thermal is None:
             thermal = rgb

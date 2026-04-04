@@ -4,7 +4,7 @@
 [model]
 variant = "384_2242"
 drop_path_rate = 0.1
-# pretrained = "/mnt/forge-data/models/tuni/RGBT/model_best.pth.tar"
+pretrained_checkpoint = "/mnt/forge-data/models/tuni/TUNI/Donwstream datasets/FMB.pth"
 
 [training]
 batch_size = 4
