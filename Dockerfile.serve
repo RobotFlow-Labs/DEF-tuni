@@ -1,0 +1,31 @@
+# DEF-tuni: TUNI Real-Time RGB-T Segmentation — Serving Container
+# Layer 3: anima-serve + module code
+FROM ghcr.io/robotflow-labs/anima-serve:jazzy AS base
+
+WORKDIR /app
+
+# Copy module source
+COPY pyproject.toml .
+COPY src/ src/
+COPY configs/ configs/
+COPY anima_module.yaml .
+
+# Install module deps (no CUDA build needed — model is pure PyTorch)
+RUN uv pip install --no-cache-dir -e ".[cuda]" \
+    --index-url https://download.pytorch.org/whl/cu128
+
+# Weights download at runtime from HF
+ENV ANIMA_MODULE_NAME=def-tuni \
+    ANIMA_MODULE_VERSION=0.2.0 \
+    ANIMA_HF_REPO=ilessio-aiflowlab/DEF-tuni \
+    ANIMA_DEVICE=auto \
+    ANIMA_WEIGHT_FORMAT=auto \
+    ANIMA_SERVE_PORT=8080 \
+    ANIMA_WEIGHT_DIR=/data/weights
+
+EXPOSE 8080
+
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
+    CMD curl -f http://localhost:8080/health || exit 1
+
+CMD ["python", "-m", "anima_serve.cli", "--module", "def_tuni.serve"]

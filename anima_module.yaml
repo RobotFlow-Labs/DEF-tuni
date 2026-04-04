@@ -1,0 +1,81 @@
+name: def-tuni
+display_name: "TUNI: Real-Time RGB-T Semantic Segmentation"
+version: "0.2.0"
+description: >
+  Real-time RGB-T semantic segmentation with unified multi-modal feature extraction.
+  27 FPS on Jetson Orin NX. Supports FMB (15-class), PST900 (5-class), CART (12-class).
+
+paper:
+  title: "TUNI: Real-time RGB-T Semantic Segmentation with Unified Multi-Modal Feature Extraction and Cross-Modal Feature Fusion"
+  arxiv: "2509.10005"
+  venue: "ICRA 2026"
+  authors: "Xiaodong Guo et al."
+
+capabilities:
+  - rgb_thermal_segmentation
+  - real_time_inference
+  - edge_deployment
+  - multi_dataset_support
+
+api:
+  input:
+    - name: rgb
+      type: image
+      shape: [3, 480, 640]
+      format: "RGB normalized (ImageNet mean/std)"
+    - name: thermal
+      type: image
+      shape: [3, 480, 640]
+      format: "Thermal (3-ch grayscale, normalized)"
+  output:
+    - name: segmentation
+      type: segmentation_mask
+      shape: [480, 640]
+      format: "Class indices (int64)"
+
+model:
+  architecture: "TUNI (Conv + Attention hybrid)"
+  variant: "384_2242"
+  parameters: "10.6M"
+  input_resolution: "480x640"
+  backbone_dims: [48, 96, 192, 384]
+  decoder: "MLP (256-dim embed)"
+
+docker:
+  base_image: "ghcr.io/robotflow-labs/anima-serve:jazzy"
+  gpu_required: true
+  min_vram_mb: 2048
+  serve_port: 8080
+
+ros2:
+  node_name: "tuni_segmentation"
+  topics:
+    subscribe:
+      - name: "/camera/rgb/image_raw"
+        type: "sensor_msgs/msg/Image"
+      - name: "/camera/thermal/image_raw"
+        type: "sensor_msgs/msg/Image"
+    publish:
+      - name: "/tuni/segmentation"
+        type: "sensor_msgs/msg/Image"
+
+datasets:
+  - name: FMB
+    classes: 15
+    domain: "Urban driving"
+  - name: PST900
+    classes: 5
+    domain: "Off-road/indoor"
+  - name: CART
+    classes: 12
+    domain: "Aerial RGB-T"
+
+exports:
+  formats:
+    - pth
+    - safetensors
+    - onnx
+    - tensorrt_fp16
+    - tensorrt_fp32
+
+hf_repo: "ilessio-aiflowlab/DEF-tuni"

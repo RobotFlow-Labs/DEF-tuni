@@ -1,0 +1,53 @@
+version: "3.8"
+
+services:
+  tuni-serve:
+    build:
+      context: .
+      dockerfile: Dockerfile.serve
+    env_file: .env.serve
+    ports:
+      - "${ANIMA_SERVE_PORT:-8080}:8080"
+    volumes:
+      - weights:/data/weights
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    network_mode: host
+    profiles: [serve]
+
+  tuni-ros2:
+    build:
+      context: .
+      dockerfile: Dockerfile.serve
+    env_file: .env.serve
+    volumes:
+      - weights:/data/weights
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    network_mode: host
+    command: ["python", "-m", "anima_serve.cli", "--module", "def_tuni.serve", "--ros2"]
+    profiles: [ros2]
+
+  tuni-api:
+    build:
+      context: .
+      dockerfile: Dockerfile.serve
+    env_file: .env.serve
+    ports:
+      - "${ANIMA_SERVE_PORT:-8080}:8080"
+    volumes:
+      - weights:/data/weights
+    profiles: [api]
+
+volumes:
+  weights:

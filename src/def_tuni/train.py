@@ -187,6 +187,11 @@ def train(cfg: dict, resume: str | None = None, max_steps: int | None = None):
         pretrained=pretrained,
     ).to(device)
 
+    # Load full pretrained checkpoint (encoder + decoder) if specified
+    pretrained_ckpt = model_cfg.get("pretrained_checkpoint", None)
+    if pretrained_ckpt:
+        model.load_checkpoint(pretrained_ckpt)
+
     n_params = sum(p.numel() for p in model.parameters()) / 1e6
     print(f"[MODEL] TUNI variant={variant}, {n_params:.1f}M params, n_classes={n_classes}")
 
