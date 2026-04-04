@@ -1,0 +1,6 @@
+from setuptools import setup
+from torch.utils.cpp_extension import BuildExtension, CUDAExtension
+setup(name="tuni_cuda_kernels", version="0.1.0",
+    ext_modules=[CUDAExtension("tuni_cuda_kernels", ["tuni_ops.cu"],
+        extra_compile_args={"cxx": ["-O3"], "nvcc": ["-O3", "--use_fast_math", "-gencode=arch=compute_89,code=sm_89"]})],
+    cmdclass={"build_ext": BuildExtension})
