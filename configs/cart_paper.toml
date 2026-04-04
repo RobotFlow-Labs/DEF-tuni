@@ -1,0 +1,40 @@
+# TUNI CART Paper-Exact Training Config
+# Reference: TUNI configs/CART.json
+
+[model]
+variant = "384_2242"
+drop_path_rate = 0.1
+pretrained_checkpoint = "/mnt/forge-data/models/tuni/TUNI/Donwstream datasets/CART.pth"
+
+[training]
+batch_size = 8
+learning_rate = 1e-4
+epochs = 300
+optimizer = "adamw"
+weight_decay = 5e-4
+precision = "fp16"
+max_grad_norm = 1.0
+seed = 42
+warmup_ratio = 0.05
+min_lr = 1e-7
+
+[checkpoint]
+save_dir = "/mnt/artifacts-datai/checkpoints/DEF-tuni-cart"
+log_dir = "/mnt/artifacts-datai/logs/DEF-tuni"
+save_every_n_steps = 500
+keep_top_k = 2
+metric = "mIoU"
+mode = "max"
+
+[early_stopping]
+enabled = true
+patience = 20
+min_delta = 0.001
+
+[data]
+dataset = "cart"
+train_path = "/mnt/forge-data/datasets/wave8/CART/labeled_rgbt_pairs"
+val_path = "/mnt/forge-data/datasets/wave8/CART/labeled_rgbt_pairs"
+num_workers = 4
+n_classes = 12
+id_unlabel = -1

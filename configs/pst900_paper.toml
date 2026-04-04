@@ -1,0 +1,40 @@
+# TUNI PST900 Paper-Exact Training Config
+# Reference: TUNI configs/PST900.json
+
+[model]
+variant = "384_2242"
+drop_path_rate = 0.1
+pretrained_checkpoint = "/mnt/forge-data/models/tuni/TUNI/Donwstream datasets/PST900.pth"
+
+[training]
+batch_size = 4
+learning_rate = 1e-4
+epochs = 200
+optimizer = "adamw"
+weight_decay = 5e-4
+precision = "fp16"
+max_grad_norm = 1.0
+seed = 42
+warmup_ratio = 0.05
+min_lr = 1e-7
+
+[checkpoint]
+save_dir = "/mnt/artifacts-datai/checkpoints/DEF-tuni-pst900"
+log_dir = "/mnt/artifacts-datai/logs/DEF-tuni"
+save_every_n_steps = 500
+keep_top_k = 2
+metric = "mIoU"
+mode = "max"
+
+[early_stopping]
+enabled = true
+patience = 20
+min_delta = 0.001
+
+[data]
+dataset = "pst900"
+train_path = "/mnt/forge-data/datasets/wave8/PST900/PST900_RGBT_Dataset"
+val_path = "/mnt/forge-data/datasets/wave8/PST900/PST900_RGBT_Dataset"
+num_workers = 4
+n_classes = 5
+id_unlabel = -1
