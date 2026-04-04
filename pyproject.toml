@@ -4,19 +4,31 @@ build-backend = "hatchling.build"
 
 [project]
 name = "def-tuni"
-version = "0.1.0"
-description = "ANIMA DEF-tuni scaffolding for dual-backend RGB-T segmentation (CUDA + MLX)."
+version = "0.2.0"
+description = "TUNI: Real-time RGB-T Semantic Segmentation with Unified Multi-Modal Feature Extraction."
 readme = "PRD.md"
 requires-python = ">=3.11"
 dependencies = [
   "numpy>=1.26",
   "pyyaml>=6.0",
   "typing-extensions>=4.10",
+  "pillow>=10.0",
+  "opencv-python-headless>=4.8",
+  "scikit-learn>=1.3",
+  "tqdm>=4.65",
+  "safetensors>=0.4",
+  "tomli>=2.0; python_version<'3.11'",
 ]
 
 [project.optional-dependencies]
 cuda = [
   "torch>=2.4",
+  "torchvision>=0.19",
+  "mmengine>=0.10",
+  "fvcore>=0.1",
+  "thop>=0.1",
+  "ptflops>=0.7",
+  "onnx>=1.14",
 ]
 mlx = [
   "mlx>=0.16",
@@ -27,3 +39,6 @@ def-tuni = "def_tuni.runner:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/def_tuni"]
+
+[tool.uv]
+extra-index-url = ["https://download.pytorch.org/whl/cu128"]

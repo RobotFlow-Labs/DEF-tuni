@@ -1,0 +1,36 @@
+# TUNI Debug Config — Quick Smoke Test (2 epochs, small batch)
+
+[model]
+variant = "384_2242"
+drop_path_rate = 0.1
+
+[training]
+batch_size = 2
+learning_rate = 1e-4
+epochs = 2
+optimizer = "adamw"
+weight_decay = 5e-4
+precision = "fp16"
+max_grad_norm = 1.0
+seed = 42
+warmup_ratio = 0.05
+min_lr = 1e-7
+
+[checkpoint]
+save_dir = "/mnt/artifacts-datai/checkpoints/DEF-tuni-debug"
+log_dir = "/mnt/artifacts-datai/logs/DEF-tuni-debug"
+save_every_n_steps = 5
+keep_top_k = 2
+metric = "mIoU"
+mode = "max"
+
+[early_stopping]
+enabled = false
+
+[data]
+dataset = "fmb"
+train_path = "/mnt/forge-data/datasets/wave8/FMB"
+val_path = "/mnt/forge-data/datasets/wave8/FMB"
+num_workers = 2
+n_classes = 15
+id_unlabel = 13
