@@ -1,6 +1,7 @@
 # TODO - 计算模型的推理时间
 def calcTime():
 
+    import os
     import numpy as np
     import torch
     from torch.backends import cudnn
@@ -11,15 +12,16 @@ def calcTime():
     # from model_others.RGB_T.CAINet import mobilenetGloRe3_CRRM_dule_arm_bou_att
     # from model_others.RGB_T.MDNet.model import MDNet
     # from model_others.RGB_T.DFormer import Model
-    from proposed.model1 import Model
+    from model1 import Model
 
 
     cudnn.benchmark = True
 
-    device = 'cuda:0'
+    cuda_index = int(os.environ.get("ANIMA_CUDA_DEVICE", "0"))
+    device = f'cuda:{cuda_index}'
 
     repetitions = 1000
-    model = Model(mode='TFormer', input='RGBT', n_class=12).eval().to(device)
+    model = Model(mode='TUNI', input='RGBT', n_class=12).eval().to(device)
     # model = Model(mode='atto', inputs='rgbt', n_class=12, fusion_mode='CMSSM-KD').eval().to(device)
     from ptflops import get_model_complexity_info
     flops, params = get_model_complexity_info(model, (3, 480, 640), as_strings=True, print_per_layer_stat=False)

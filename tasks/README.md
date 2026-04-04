@@ -20,7 +20,7 @@ git clone https://github.com/xiaodonguo/TUNI.git
 cd TUNI
 
 # 2. Create uv env
-uv venv .venv --python 3.10
+uv venv .venv --python 3.11
 source .venv/bin/activate
 
 # 3. Install PyTorch cu128

@@ -1,0 +1,29 @@
+[build-system]
+requires = ["hatchling>=1.25.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "def-tuni"
+version = "0.1.0"
+description = "ANIMA DEF-tuni scaffolding for dual-backend RGB-T segmentation (CUDA + MLX)."
+readme = "PRD.md"
+requires-python = ">=3.11"
+dependencies = [
+  "numpy>=1.26",
+  "pyyaml>=6.0",
+  "typing-extensions>=4.10",
+]
+
+[project.optional-dependencies]
+cuda = [
+  "torch>=2.4",
+]
+mlx = [
+  "mlx>=0.16",
+]
+
+[project.scripts]
+def-tuni = "def_tuni.runner:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/def_tuni"]

@@ -1,0 +1,55 @@
+project: DEF-tuni
+wave: 8
+source_repo: repositories/TUNI
+paper_pdf: papers/2509.10005.pdf
+tasks:
+  - id: PRD-001
+    title: Environment setup and bootstrap
+    priority: P0
+    deps: []
+    status: completed
+  - id: PRD-002
+    title: Dataset and checkpoint path normalization
+    priority: P0
+    deps: [PRD-001]
+    status: pending
+  - id: PRD-003
+    title: Baseline evaluation wrappers (FMB, PST900, CART)
+    priority: P0
+    deps: [PRD-001, PRD-002]
+    status: in_progress
+  - id: PRD-004
+    title: FPS benchmark matrix
+    priority: P0
+    deps: [PRD-001]
+    status: pending
+  - id: PRD-005
+    title: CUDA profiling protocol
+    priority: P1
+    deps: [PRD-003]
+    status: pending
+  - id: PRD-006
+    title: Custom kernel implementation track
+    priority: P1
+    deps: [PRD-005]
+    status: pending
+  - id: PRD-007
+    title: MLX backend parity
+    priority: P1
+    deps: [PRD-003]
+    status: pending
+  - id: PRD-008
+    title: TensorRT edge deployment
+    priority: P0
+    deps: [PRD-003, PRD-006]
+    status: pending
+  - id: PRD-009
+    title: Cross-module integration and comparison
+    priority: P2
+    deps: [PRD-003]
+    status: pending
+  - id: PRD-010
+    title: Ablation matrix
+    priority: P2
+    deps: [PRD-003]
+    status: pending

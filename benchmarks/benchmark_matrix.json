@@ -1,0 +1,234 @@
+{
+  "datasets": {
+    "FMB": {
+      "cmd": [
+        "def-tuni",
+        "eval",
+        "--dataset",
+        "FMB",
+        "--dry-run"
+      ],
+      "returncode": 0,
+      "elapsed_s": 0.0,
+      "dry_run": true
+    },
+    "PST900": {
+      "cmd": [
+        "def-tuni",
+        "eval",
+        "--dataset",
+        "PST900",
+        "--dry-run"
+      ],
+      "returncode": 0,
+      "elapsed_s": 0.0,
+      "dry_run": true
+    },
+    "CART": {
+      "cmd": [
+        "def-tuni",
+        "eval",
+        "--dataset",
+        "CART",
+        "--dry-run"
+      ],
+      "returncode": 0,
+      "elapsed_s": 0.0,
+      "dry_run": true
+    }
+  },
+  "fps": [
+    {
+      "cmd": [
+        "def-tuni",
+        "fps",
+        "--dry-run"
+      ],
+      "returncode": 0,
+      "elapsed_s": 0.0,
+      "dry_run": true,
+      "batch_size": 1,
+      "resolution": "240x320"
+    },
+    {
+      "cmd": [
+        "def-tuni",
+        "fps",
+        "--dry-run"
+      ],
+      "returncode": 0,
+      "elapsed_s": 0.0,
+      "dry_run": true,
+      "batch_size": 1,
+      "resolution": "480x640"
+    },
+    {
+      "cmd": [
+        "def-tuni",
+        "fps",
+        "--dry-run"
+      ],
+      "returncode": 0,
+      "elapsed_s": 0.0,
+      "dry_run": true,
+      "batch_size": 1,
+      "resolution": "720x960"
+    },
+    {
+      "cmd": [
+        "def-tuni",
+        "fps",
+        "--dry-run"
+      ],
+      "returncode": 0,
+      "elapsed_s": 0.0,
+      "dry_run": true,
+      "batch_size": 1,
+      "resolution": "1080x1920"
+    },
+    {
+      "cmd": [
+        "def-tuni",
+        "fps",
+        "--dry-run"
+      ],
+      "returncode": 0,
+      "elapsed_s": 0.0,
+      "dry_run": true,
+      "batch_size": 2,
+      "resolution": "240x320"
+    },
+    {
+      "cmd": [
+        "def-tuni",
+        "fps",
+        "--dry-run"
+      ],
+      "returncode": 0,
+      "elapsed_s": 0.0,
+      "dry_run": true,
+      "batch_size": 2,
+      "resolution": "480x640"
+    },
+    {
+      "cmd": [
+        "def-tuni",
+        "fps",
+        "--dry-run"
+      ],
+      "returncode": 0,
+      "elapsed_s": 0.0,
+      "dry_run": true,
+      "batch_size": 2,
+      "resolution": "720x960"
+    },
+    {
+      "cmd": [
+        "def-tuni",
+        "fps",
+        "--dry-run"
+      ],
+      "returncode": 0,
+      "elapsed_s": 0.0,
+      "dry_run": true,
+      "batch_size": 2,
+      "resolution": "1080x1920"
+    },
+    {
+      "cmd": [
+        "def-tuni",
+        "fps",
+        "--dry-run"
+      ],
+      "returncode": 0,
+      "elapsed_s": 0.0,
+      "dry_run": true,
+      "batch_size": 4,
+      "resolution": "240x320"
+    },
+    {
+      "cmd": [
+        "def-tuni",
+        "fps",
+        "--dry-run"
+      ],
+      "returncode": 0,
+      "elapsed_s": 0.0,
+      "dry_run": true,
+      "batch_size": 4,
+      "resolution": "480x640"
+    },
+    {
+      "cmd": [
+        "def-tuni",
+        "fps",
+        "--dry-run"
+      ],
+      "returncode": 0,
+      "elapsed_s": 0.0,
+      "dry_run": true,
+      "batch_size": 4,
+      "resolution": "720x960"
+    },
+    {
+      "cmd": [
+        "def-tuni",
+        "fps",
+        "--dry-run"
+      ],
+      "returncode": 0,
+      "elapsed_s": 0.0,
+      "dry_run": true,
+      "batch_size": 4,
+      "resolution": "1080x1920"
+    },
+    {
+      "cmd": [
+        "def-tuni",
+        "fps",
+        "--dry-run"
+      ],
+      "returncode": 0,
+      "elapsed_s": 0.0,
+      "dry_run": true,
+      "batch_size": 8,
+      "resolution": "240x320"
+    },
+    {
+      "cmd": [
+        "def-tuni",
+        "fps",
+        "--dry-run"
+      ],
+      "returncode": 0,
+      "elapsed_s": 0.0,
+      "dry_run": true,
+      "batch_size": 8,
+      "resolution": "480x640"
+    },
+    {
+      "cmd": [
+        "def-tuni",
+        "fps",
+        "--dry-run"
+      ],
+      "returncode": 0,
+      "elapsed_s": 0.0,
+      "dry_run": true,
+      "batch_size": 8,
+      "resolution": "720x960"
+    },
+    {
+      "cmd": [
+        "def-tuni",
+        "fps",
+        "--dry-run"
+      ],
+      "returncode": 0,
+      "elapsed_s": 0.0,
+      "dry_run": true,
+      "batch_size": 8,
+      "resolution": "1080x1920"
+    }
+  ]
+}

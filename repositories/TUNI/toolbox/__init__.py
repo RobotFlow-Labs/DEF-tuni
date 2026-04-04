@@ -186,11 +186,11 @@ def get_model(cfg):
 # model
 
     if cfg['model_name'] == 'model1_b1_CM-SSM':
-        from proposed.model1 import Model
+        from model1 import Model
         return Model(mode='b1', n_class=cfg['n_classes'], inputs='rgbt', fusion_mode='CMSSM')
 
     if cfg['model_name'] == 'model1_b3_CM-SSM':
-        from proposed.model1 import Model
+        from model1 import Model
         return Model(mode='b3', n_class=cfg['n_classes'], inputs='rgbt', fusion_mode='CMSSM')
 
     if cfg['model_name'] == 'model2_atto_CM-SSM':
@@ -207,11 +207,11 @@ def get_model(cfg):
 
 # ablation
     if cfg['model_name'] == 'model1_b1_sigma':
-        from proposed.model1 import Model
+        from model1 import Model
         return Model(mode='b1', n_class=cfg['n_classes'], inputs='rgbt', fusion_mode='sigma')
 
     if cfg['model_name'] == 'model1_b1_CMX':
-        from proposed.model1 import Model
+        from model1 import Model
         return Model(mode='b1', n_class=cfg['n_classes'], inputs='rgbt', fusion_mode='CMX')
 
 
@@ -248,32 +248,30 @@ def get_model(cfg):
 # modify
 
     if cfg['model_name'] == 'TUNI':
-        from proposed.model1 import Model
+        from model1 import Model
         return Model(mode='TUNI', input='RGBT', n_class=cfg['n_classes'])
 
     if cfg['model_name'] == 'TUNI_RR':
-        from proposed.model1 import Model
+        from model1 import Model
         return Model(mode='TUNI', input='RGBRGB', n_class=cfg['n_classes'])
 
     if cfg['model_name'] == 'TUNI_RD':
-        from proposed.model1 import Model
+        from model1 import Model
         return Model(mode='TUNI', input='RGBD', n_class=cfg['n_classes'])
 
     # ablation
 
     if cfg['model_name'] == 'wo_localrgbt':
-        from proposed.model1 import Model
+        from model1 import Model
         return Model(mode='wo_localrgbt', input='RGBT', n_class=cfg['n_classes'])
 
     if cfg['model_name'] == 'wo_globalrgbt':
-        from proposed.model1 import Model
+        from model1 import Model
         return Model(mode='wo_globalrgbt', input='RGBT', n_class=cfg['n_classes'])
 
     if cfg['model_name'] == 'wo_localrgbrgb':
-        from proposed.model1 import Model
+        from model1 import Model
         return Model(mode='wo_localrgbrgb', input='RGBT', n_class=cfg['n_classes'])
-
-
 
 
 

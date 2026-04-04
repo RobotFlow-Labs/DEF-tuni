@@ -9,7 +9,7 @@
 
 ### Immediate Next Actions
 1. Clone repo: `git clone https://github.com/xiaodonguo/TUNI.git`
-2. Create uv env: `uv venv .venv --python 3.10`
+2. Create uv env: `uv venv .venv --python 3.11`
 3. Install PyTorch cu128 + mmcv 2.2.0 + mmengine
 4. Install measurement tools: fvcore, thop, ptflops
 5. Download pre-trained weights from GitHub releases (TUNI.zip)

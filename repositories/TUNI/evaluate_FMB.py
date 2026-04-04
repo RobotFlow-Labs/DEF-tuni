@@ -27,7 +27,8 @@ def evaluate(logdir, save_predict=False, options=['val', 'test', 'test_day', 'te
                 cfg = json.load(fp)
     assert cfg is not None
 
-    device = torch.device('cuda:0')
+    device_index = int(os.environ.get('ANIMA_CUDA_DEVICE', '0'))
+    device = torch.device(f'cuda:{device_index}')
 
     loaders = []
     for opt in options:
@@ -62,6 +63,8 @@ def evaluate(logdir, save_predict=False, options=['val', 'test', 'test_day', 'te
                     thermal = sample['thermal'].to(device)
                     label = sample['label'].to(device)
                     predict = model(image, thermal)
+                if isinstance(predict, (list, tuple)):
+                    predict = predict[0]
                 predict = predict.max(1)[1].cpu().numpy()  # [1, h, w] 按照第一个维度求最大值，并返回最大值对应的索引
                 label = label.cpu().numpy()
                 running_metrics_val.update(label, predict)

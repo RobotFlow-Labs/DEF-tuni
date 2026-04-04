@@ -24,7 +24,8 @@ def evaluate(logdir, save_predict=True, options=['val', 'test', 'test_day', 'tes
                 cfg = json.load(fp)
     assert cfg is not None
 
-    device = torch.device('cuda:0')
+    device_index = int(os.environ.get('ANIMA_CUDA_DEVICE', '0'))
+    device = torch.device(f'cuda:{device_index}')
 
     loaders = []
     for opt in options:
@@ -33,7 +34,7 @@ def evaluate(logdir, save_predict=True, options=['val', 'test', 'test_day', 'tes
         cmap = dataset.cmap
 
     model = get_model(cfg).to(device)
-    model.load_state_dict(torch.load(args.model_pth, map_location='cuda'))
+    model.load_state_dict(torch.load(args.model_pth, map_location=device))
     running_metrics_val = runningScore(cfg['n_classes'], ignore_index=cfg['id_unlabel'])
     time_meter = averageMeter()
 
@@ -58,8 +59,9 @@ def evaluate(logdir, save_predict=True, options=['val', 'test', 'test_day', 'tes
                     image = sample['image'].to(device)
                     thermal = sample['thermal'].to(device)
                     label = sample['label'].to(device)
-                    predict = model(image, thermal)[0]
-                    # print(predict.shape)
+                    predict = model(image, thermal)
+                    if isinstance(predict, (list, tuple)):
+                        predict = predict[0]
                 predict = predict.max(1)[1].cpu().numpy()  # [1, h, w]
                 label = label.cpu().numpy()
                 running_metrics_val.update(label, predict)
@@ -100,4 +102,3 @@ if __name__ == '__main__':
                         help="model's weight")
     args = parser.parse_args()
     evaluate(args.logdir, save_predict=args.s, options=['test'], prefix='20')
-

@@ -1,17 +1,15 @@
 import torch
 import torch.nn as nn
-from proposed.backbone_model.TUNI import *
-from proposed.backbone_model.ablation_wo_localrgbt import wo_localrgbt
-from proposed.backbone_model.ablation_wo_globalrgbt import wo_globalrgbt
-from proposed.backbone_model.ablation_wo_localrgbrgb import wo_localrgbrgb
-from proposed.decoder.MLP import Decoder_MLP
-from proposed.decoder.Hamburger import Decoder_Ham
+from backbone_model.TUNI import backbone_384_2242
+from decoder.MLP import Decoder_MLP
+from decoder.Hamburger import Decoder_Ham
 import torch.nn.functional as F
 
 
 class Encoder_RGBX(nn.Module):
     def __init__(self, mode, input):
         super(Encoder_RGBX, self).__init__()
+        self.enc = None
 
         if mode == 'TUNI':
             self.enc = backbone_384_2242()
@@ -32,16 +30,22 @@ class Encoder_RGBX(nn.Module):
                 print('load from RGBRGB')
 
         if mode == 'wo_localrgbt':
-            self.enc = wo_localrgbt(pretrained=True)
-            print('ablation_wo_localrgbt')
+            raise ValueError(
+                "Ablation backbone 'wo_localrgbt' is not present in this repository."
+            )
 
         if mode == 'wo_globalrgbt':
-            self.enc = wo_globalrgbt(pretrained=True)
-            print('ablation_wo_globalrgbt')
+            raise ValueError(
+                "Ablation backbone 'wo_globalrgbt' is not present in this repository."
+            )
 
         if mode == 'wo_localrgbrgb':
-            self.enc = wo_localrgbrgb(pretrained=True)
-            print('ablation_wo_localrgbrgb')
+            raise ValueError(
+                "Ablation backbone 'wo_localrgbrgb' is not present in this repository."
+            )
+
+        if self.enc is None:
+            raise ValueError(f"Unsupported mode: {mode!r}. Expected 'TUNI'.")
 
 
 

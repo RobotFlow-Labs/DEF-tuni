@@ -126,3 +126,7 @@ TUNI is the **real-time champion** of RGB-T segmentation — 27 FPS on Jetson Or
 ## Python: >= 3.10
 ## Torch: cu128 index
 ## Git prefix: [DEF-tuni]
+
+## Reference Implementation
+Source code at: repositories/TUNI/
+Read ALL files in repositories/TUNI/ before building. This is the paper's reference implementation.
